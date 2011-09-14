@@ -1,6 +1,9 @@
 # Routes 
 
 GET      /           controllers.Application.index
+GET      /edit       controllers.Application.edit
+GET      /save/:id   controllers.Application.save(id: Int)
+GET      /save       controllers.Application.create(contact: models.Contact)
 
 #static resources
 GET     /public/*file                   controllers.Assets.at(path="/public", file)

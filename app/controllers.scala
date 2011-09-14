@@ -1,20 +1,45 @@
-package controllers
+import java.util.Date
+import models._
 
-import play.api.mvc._
-import play.api.mvc.Results._
-
-object Application extends Controller {
-    import scalaz._
-    import Scalaz._
-    
-    implicit val wHtml : Writeable[play.templates.Html] = AsString[play.templates.Html](_.toString)
-    
-    // TODO: do we want to get rid of this?
-    // Are controllers supposed to stay pure?
-    def index = Action {
-        import java.util.Date
-        // We can't use implicit conversion here because Html will expect an implicit Writeable
-        // We either have to call toString explicitly, or to provide a Writeable for play.templates.Html
-        Html(views.Application.html.index(new Date()))
+package object controllers{
+  import play.core.QueryStringBindable
+  implicit def bindableContact = new QueryStringBindable[models.Contact] {
+    def bind(key:String, params:Map[String,Seq[String]]) = {
+      Option(Right(Contact(
+            42,
+            "Julien",
+            "Tournay",
+            new Date(),
+            None
+      )))
     }
+    def unbind(key:String, value:Contact) = "?contact.id=42"
+  }
+}
+
+package controllers{
+
+  import play.api.mvc._
+  import play.api.mvc.Results._
+
+  object Application extends Controller {
+    
+      implicit val wHtml : Writeable[play.templates.Html] = AsString[play.templates.Html](_.toString)
+    
+      def index = Action {
+        Html(views.Application.html.index(new Date()))
+      }
+    
+      def edit = Action {
+        Html(views.Application.html.edit(None))
+      }
+    
+      def save(id: Int) = Action { ctx: Context =>
+        Text(ctx.request.toString)
+      }
+    
+      def create(contact: Contact) = Action {
+        save(0)
+      }
+  }
 }
