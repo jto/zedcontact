@@ -1,7 +1,0 @@
-[0m[[0mdebug[0m] [0mCopy play resource mappings: [0m
-[0m[[0mdebug[0m] [0m	(/Users/jto/Desktop/zedcontact/conf,/Users/jto/Desktop/zedcontact/target/scala-2.9.0.final/classes/conf)[0m
-[0m[[0mdebug[0m] [0m	(/Users/jto/Desktop/zedcontact/conf/application.yml,/Users/jto/Desktop/zedcontact/target/scala-2.9.0.final/classes/conf/application.yml)[0m
-[0m[[0mdebug[0m] [0m	(/Users/jto/Desktop/zedcontact/conf/routes,/Users/jto/Desktop/zedcontact/target/scala-2.9.0.final/classes/conf/routes)[0m
-[0m[[0mdebug[0m] [0m	(/Users/jto/Desktop/zedcontact/public,/Users/jto/Desktop/zedcontact/target/scala-2.9.0.final/classes/public)[0m
-[0m[[0mdebug[0m] [0m	(/Users/jto/Desktop/zedcontact/public/stylesheets,/Users/jto/Desktop/zedcontact/target/scala-2.9.0.final/classes/public/stylesheets)[0m
-[0m[[0mdebug[0m] [0m	(/Users/jto/Desktop/zedcontact/public/stylesheets/main.css,/Users/jto/Desktop/zedcontact/target/scala-2.9.0.final/classes/public/stylesheets/main.css)[0m

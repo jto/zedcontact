@@ -1,6 +1,0 @@
-# Routes 
-
-GET      /           controllers.Application.index
-
-#static resources
-GET     /public/*file                   controllers.Assets.at(path="/public", file)
