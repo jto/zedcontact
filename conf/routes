@@ -3,7 +3,9 @@
 GET      /           controllers.Application.index
 GET      /edit       controllers.Application.edit
 GET      /save/:id   controllers.Application.save(id: Int)
-GET      /save       controllers.Application.create(contact: models.Contact)
+GET      /test       controllers.Application.testOption(i: Option[Int] ?= None)
+GET      /save       controllers.Application.create(contact: Option[models.Contact] ?= None)
+
 
 #static resources
 GET     /public/*file                   controllers.Assets.at(path="/public", file)

@@ -1,13 +1,15 @@
 @(contact:Option[models.Contact] = None)(implicit errors: Map[String, String] = Map())
 
 @import controllers._
+@import models._
+@import java.util.Date
 
 @views.html.main(title = contact.map("Contact " + _.id).getOrElse("New contact"), current = "form") {
     
-<form action="@(contact.toRight(None).fold(_ => routes.Application.create("toto"), c => routes.Application.save(c.id)))" method="get">
+<form action="@(contact.toRight(None).fold(_ => routes.Application.create(None), c => routes.Application.save(c.id)))" method="get">
 
         <input type="hidden" name="contact.id" value="@contact.map(_.id)">
-
+        
         <p class="field">
             <label for="name">Name:</label>
             <input type="text" id="name" name="contact.name" value="@contact.map(_.name)">
