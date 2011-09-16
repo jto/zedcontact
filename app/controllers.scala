@@ -10,18 +10,13 @@ package object controllers{
     
     val fields = List("id", "firstname", "lastname", "birthdate", "email")
     
-    def bind(key:String, params:Map[String,Seq[String]]) = {
-            
-      val l = (
+    def bind(key:String, params:Map[String,Seq[String]]) = {      
+      (
           implicitly[QueryStringBindable[Option[Int]]].bind(key |+| ".id", params).orElse(some(Right(None))) |@|
           params.get(key |+| ".firstname").map(x => Right(x.asMA.sum)) |@|
           params.get(key |+| ".lastname").map(x => Right(x.asMA.sum)) |@|
           implicitly[QueryStringBindable[Option[String]]].bind(key |+| ".email", params).orElse(some(Right(None)))
-      ) {_ |@| _ |@| _ |@| _}
-      
-      l map (_.apply( (id,firstname,lastname,email) =>
-        Contact(id, firstname, lastname, new Date(), email)
-      ))
+      ) {_ |@| _ |@| _ |@| _} map (_(Contact(_, _, _, new Date(), _)))
     }
     
     //TODO: urlencode
