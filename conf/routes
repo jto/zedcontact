@@ -3,7 +3,6 @@
 GET      /           controllers.Application.index
 GET      /edit       controllers.Application.edit
 GET      /save/:id   controllers.Application.save(id: Int)
-GET      /test       controllers.Application.testOption(i: Option[Int] ?= None)
 GET      /save       controllers.Application.create(contact: Option[models.Contact] ?= None)
 
 
