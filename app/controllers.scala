@@ -10,20 +10,25 @@ package object controllers{
     
     val fields = List("id", "firstname", "lastname", "birthdate", "email")
     
-    def bind(key:String, params:Map[String,Seq[String]]) = {      
-      (
-          implicitly[QueryStringBindable[Option[Int]]].bind(key |+| ".id", params).orElse(some(Right(None))) |@|
-          params.get(key |+| ".firstname").map(x => Right(x.asMA.sum)) |@|
-          params.get(key |+| ".lastname").map(x => Right(x.asMA.sum)) |@|
-          implicitly[QueryStringBindable[Option[String]]].bind(key |+| ".email", params).orElse(some(Right(None)))
-      ) {_ |@| _ |@| _ |@| _} map (_(Contact(_, _, _, new Date(), _)))
+    // This crap seems overly complicated
+    def bind(key:String, params:Map[String,Seq[String]]) = {
+      val id = implicitly[QueryStringBindable[Option[Int]]].bind(key |+| ".id", params).orElse(some(Right(None)))
+      val firstname = params.get(key |+| ".firstname").map(x => Right(x.asMA.sum))
+      val lastname = params.get(key |+| ".lastname").map(x => Right(x.asMA.sum))
+      val email = implicitly[QueryStringBindable[Option[String]]].bind(key |+| ".email", params).orElse(some(Right(None)))
+      
+      val  validated = (id |@| firstname |@| lastname |@| email){_ |@| _ |@| _ |@| _}
+      validated map { v =>
+        v.apply(Contact(_,_,_, new Date("09/10/1985"), _))
+         .flatMap(_.either.left.map(_.sum)) //sum... bof bof
+      }
     }
-    
+
     //TODO: urlencode
     def unbind(key:String, c:Contact) = implicitly[QueryStringBindable[Option[Int]]].unbind(key |+| ".id", c.id) |+| 
                                           "&" |+| key |+| ".firstname=" |+| c.firstname |+|
                                           "&" |+| key |+| ".lastname=" |+| c.lastname |+|
-                                          "&" |+| implicitly[QueryStringBindable[Option[String]]].unbind(key |+| ".email", c.email)
+                                          "&" |+| implicitly[QueryStringBindable[Option[String]]].unbind(key |+| ".email", c.email.map(_.value))
   }
 }
 

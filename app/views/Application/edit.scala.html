@@ -24,7 +24,7 @@
 
         <p class="field">
             <label for="birthdate">Birth date:</label>
-            <input type="text" id="birthdate" name="contact.birthdate" value="@contact.map(c => Option(c.birthdate).map(_.format("yyyy-MM-dd")))">
+            <input type="text" id="birthdate" name="contact.birthdate" value="@contact.map(c => Option(c.birthdate).map(_.value.format("yyyy-MM-dd")))">
             <span class="error">@errors.get("contact.birthdate")</span>
         </p>
 
